@@ -33,4 +33,4 @@ Notes
   - Provide complete instructions for running your code and installing dependencies.
   - Document assumptions and decisions in readme file.
   - It should be possible to run your program on Linux or macOS.
-  - Please provide us with access to git repo with code when you’re done.
+  - Please provide us with access to your git repo with code when you’re done (don't push to this repo).
