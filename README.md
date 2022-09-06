@@ -48,6 +48,10 @@ From here on are my stream-of-conciousness notes on the task. I prefer to keep m
   - Knights can move both forward and back, making closed loops irrelevant. Keep a list of visited tiles, and disallow revisting places we've been.
   - Possible use-case for recursion - I'll have a think once I've got basics down.
     - My quick-and-dirty recursive implementation turned out depth-first, duh. Rewrite that so it's breadth-first!
+  - It occurs to me while writing the breadth-first version that since this is just a graph, I could leverage a graph package to handle this?
+    - Probably more optimised
+    - It's been a few years since I've done anything with networkX, but I think that would do the job here... But I'd need to essentially re-learn its use
+
 
 ## Running the code
 
@@ -60,5 +64,5 @@ pip install -r requirements.txt
 
 I should have `pytest` tests for my code (if I've kept up with it), which should be runnable simply with
 ```
-pytest
+pytest --cov=src tests/
 ```

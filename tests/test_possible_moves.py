@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from src.knights_journey import chess_notation_to_index, get_possible_moves, index_to_chess_notation, move_between_positions
+from src.knights_journey import chess_notation_to_index, get_possible_moves, index_to_chess_notation, move_between_positions_DFS
 
 possible_moves_test_io = [
     [
@@ -99,5 +99,5 @@ def test_pathfinding(input, output):
     start = input[0]
     stop = input[1]
 
-    n_moves = len(move_between_positions(start, stop)) 
-    assert output == n_moves
+    n_moves = len(move_between_positions_DFS(start, stop)) 
+    assert output >= n_moves
