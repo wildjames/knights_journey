@@ -47,6 +47,7 @@ From here on are my stream-of-conciousness notes on the task. I prefer to keep m
     - It's not worth the import, I don't think. Were the task to expand, the logic from a vanilla python implementation would port over pretty easily anyway, so a v2 would be pretty doable.
   - Knights can move both forward and back, making closed loops irrelevant. Keep a list of visited tiles, and disallow revisting places we've been.
   - Possible use-case for recursion - I'll have a think once I've got basics down.
+    - My quick-and-dirty recursive implementation turned out depth-first, duh. Rewrite that so it's breadth-first!
 
 ## Running the code
 
