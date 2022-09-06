@@ -41,6 +41,9 @@ Notes
 
 From here on are my stream-of-conciousness notes on the task. I prefer to keep more casual notes like this when doing something like this, since it's a better insight into my thought processes; actual, real projects get more "official" documentation. Depending on how verbose this gets, I may convert this section into a jupyter notebook, but we shall see.
 
+So there didn't wind up being much to talk about. Besides initially using a depth-first search (caught by my tests) and having to re-jig the logic for the moving function, this proceeded fairly straightforwardly. I'll leave my initial thoughts below unedited, for posterity, but this was fun to do around dinner and while watching Charlotte (my wife) play some games in the background.
+
+
 ## Initial thoughts. 
 
   - Since this is chess on a standard board, there's a temptation to use `stockfish` to generate legal moves. This would let me change what piece we're considering, e.g. to a rook, or let me impose restrictions like there being other pieces on the board, but still feels like overkill for the description as-is.

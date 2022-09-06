@@ -105,16 +105,3 @@ def move_between_positions(stop, histories):
     histories.remove(shortest_history)
 
     return move_between_positions(stop, histories)
-
-
-if __name__ in "__main__":
-    position = "E1"
-    target = "E8"
-
-    position = chess_notation_to_index(position)
-    target = chess_notation_to_index(target)
-    moves = move_between_positions(target, [[position]])
-
-    print("Final answer:")
-    print([index_to_chess_notation(m) for m in moves])
-    print("This is {} positions".format(len(moves)))
