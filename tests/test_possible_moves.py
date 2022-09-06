@@ -80,17 +80,17 @@ test_pathfinding = [
     [
         # One move gets you there
         [[0,0],[1, 2]],
-        [[0,0],[1, 2]]
+        2
     ],
     [
         # Two moves gets you there
         [[0,0],[2, 4]],
-        [[0,0],[1, 2],[2, 4]]
+        3
     ],
     [
         # Two moves gets you there
         [[0,0],[7, 7]],
-        [[0,0],[1, 2],[2, 4]]
+        10
     ],   
 ]
 
@@ -99,5 +99,5 @@ def test_pathfinding(input, output):
     start = input[0]
     stop = input[1]
 
-    moves = output
-    assert np.array_equal(move_between_positions(start, stop), moves)
+    n_moves = len(move_between_positions(start, stop)) 
+    assert output == n_moves

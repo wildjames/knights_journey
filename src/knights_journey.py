@@ -50,17 +50,18 @@ def chess_notation_to_index(chess_notation):
     return index
 
 
-def move_between_positions(start, stop, history=None):
+def move_between_positions(start, stop, history=None, visited=None):
     """Get the shortest path between two positions, recursively. 
     Note that this version checks depth-first, so will absolutely not return the fastest solutions.
     
     TODO: rewrite this so it's breadth-first."""
     if history is None:
         history = [start]
+        visited = [start]
 
     possible_moves = get_possible_moves(start)
     # Dont allow retreading steps
-    possible_moves = [move for move in possible_moves if move not in history]
+    possible_moves = [move for move in possible_moves if move not in history and move not in visited]
     
     if stop in possible_moves:
         history.append(stop)
@@ -69,7 +70,8 @@ def move_between_positions(start, stop, history=None):
     else:
         for move in possible_moves:
             history.append(move)
-            return move_between_positions(move, stop, history)
+            visited.append(move)
+            return move_between_positions(move, stop, history, visited)
 
 
 if __name__ in "__main__":
