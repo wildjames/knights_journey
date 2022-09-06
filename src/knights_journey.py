@@ -17,16 +17,17 @@ knight_moves = np.array(
 
 
 def get_possible_moves(position):
-    """Take a position, which is a 2-element numpy array, and 
-    return the possible moves that a knight could take from that location."""
-    moves = knight_moves + position
+    """Take a position, which is a 2-element list, and 
+    return the possible moves that a knight could take from that location.
+    Leverages numpy logic"""
+    moves = knight_moves + np.array(position)
     
     # Some numpy magic. Filter out all elements that contain a negative number
     positive_moves = moves[np.all(moves >= 0, axis=1)]
     legal_moves = positive_moves[np.all(positive_moves < 8, axis=1)]
     
     # There should always be at least two possible moves, if my reasoning is correct.
-    return legal_moves
+    return legal_moves.tolist()
 
 
 def index_to_chess_notation(position):
@@ -45,14 +46,39 @@ def chess_notation_to_index(chess_notation):
     file = "ABCDEFGH".index(chess_notation[0])
     rank = int(chess_notation[1]) - 1
 
-    index = np.array([file, rank])
+    index = [file, rank]
     return index
 
 
+def move_between_positions(start, stop, history=None):
+    """Get the shortest path between two positions, recursively. 
+    Note that this version checks depth-first, so will absolutely not return the fastest solutions.
+    
+    TODO: rewrite this so it's breadth-first."""
+    if history is None:
+        history = [start]
+
+    possible_moves = get_possible_moves(start)
+    # Dont allow retreading steps
+    possible_moves = [move for move in possible_moves if move not in history]
+    
+    if stop in possible_moves:
+        history.append(stop)
+        return history
+    
+    else:
+        for move in possible_moves:
+            history.append(move)
+            return move_between_positions(move, stop, history)
+
+
 if __name__ in "__main__":
-    position = np.array([1, 2])
-    moves = get_possible_moves(position)
-    print("Position:")
-    print(index_to_chess_notation(position))
-    print("Moves:")
+    position = "A1"
+    target = "H8"
+
+    print("Final answer:")
+    position = chess_notation_to_index(position)
+    target = chess_notation_to_index(target)
+    moves = move_between_positions(position, target)
     print(moves)
+    print("This is {} moves".format(len(moves)))
