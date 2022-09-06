@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from src.knights_journey import *
+from src.knights_workers import *
 
 possible_moves_test_io = [
     [
