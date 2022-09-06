@@ -41,6 +41,9 @@ Notes
 
 From here on are my stream-of-conciousness notes on the task. I prefer to keep more casual notes like this when doing something like this, since it's a better insight into my thought processes; actual, real projects get more "official" documentation. Depending on how verbose this gets, I may convert this section into a jupyter notebook, but we shall see.
 
+So there didn't wind up being much to talk about. Besides initially using a depth-first search (caught by my tests) and having to re-jig the logic for the moving function, this proceeded fairly straightforwardly. I'll leave my initial thoughts below unedited, for posterity, but this was fun to do around dinner and while watching Charlotte (my wife) play some games in the background.
+
+
 ## Initial thoughts. 
 
   - Since this is chess on a standard board, there's a temptation to use `stockfish` to generate legal moves. This would let me change what piece we're considering, e.g. to a rook, or let me impose restrictions like there being other pieces on the board, but still feels like overkill for the description as-is.
@@ -61,6 +64,20 @@ conda create -n knights_journey python==3.10
 conda activate knights_journey
 pip install -r requirements.txt
 ```
+
+I have two running scripts, `./knights_journey.py` which takes two arguments `[start] [stop]` and prints a path between them, and `endless_knight.py` which just streams in the `stdin` and prints paths as we go, with output that looks like this:
+```
+$ ./endless_knight.py 
+A1 B3
+A1 B3
+A1 H8
+A1 B3 C5 D7 F8 G6 H8
+D3 E8
+D3 E5 F7 D6 E8
+```
+This can be escaped by entering an invalid position, killing the script, or entering a string containing `q`. Note that positions can also be fed input from a file, like `./endless_knight.py < input_list.txt`
+
+## Testing
 
 I should have `pytest` tests for my code (if I've kept up with it), which should be runnable simply with
 ```
