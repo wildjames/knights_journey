@@ -65,6 +65,20 @@ conda activate knights_journey
 pip install -r requirements.txt
 ```
 
+I have two running scripts, `./knights_journey.py` which takes two arguments `[start] [stop]` and prints a path between them, and `endless_knight.py` which just streams in the `stdin` and prints paths as we go, with output that looks like this:
+```
+$ ./endless_knight.py 
+A1 B3
+A1 B3
+A1 H8
+A1 B3 C5 D7 F8 G6 H8
+D3 E8
+D3 E5 F7 D6 E8
+```
+This can be escaped by entering an invalid position, killing the script, or entering a string containing `q`. Note that positions can also be fed input from a file, like `./endless_knight.py < input_list.txt`
+
+## Testing
+
 I should have `pytest` tests for my code (if I've kept up with it), which should be runnable simply with
 ```
 pytest --cov=src tests/

@@ -18,10 +18,16 @@ def execute(start, stop):
 
 if __name__ in "__main__":
     while True:
-        inp = input("")
+        try:
+            inp = input("")
+        except EOFError:
+            exit()
         
         if "q" in inp.lower():
             exit()
+        if not " " in inp:
+            exit()
+        
 
         start, stop = inp.split(" ")
 
