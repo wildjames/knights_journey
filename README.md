@@ -47,3 +47,17 @@ From here on are my stream-of-conciousness notes on the task. I prefer to keep m
     - It's not worth the import, I don't think. Were the task to expand, the logic from a vanilla python implementation would port over pretty easily anyway, so a v2 would be pretty doable.
   - Knights can move both forward and back, making closed loops irrelevant. Keep a list of visited tiles, and disallow revisting places we've been.
   - Possible use-case for recursion - I'll have a think once I've got basics down.
+
+## Running the code
+
+I use conda environments, since I'm on Apple silicon and python is generally a pain here. To replicate my environment, 
+```
+conda create -n knights_journey python==3.10 
+conda activate knights_journey
+pip install -r requirements.txt
+```
+
+I should have `pytest` tests for my code (if I've kept up with it), which should be runnable simply with
+```
+pytest
+```
