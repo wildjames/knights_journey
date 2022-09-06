@@ -34,3 +34,16 @@ Notes
   - Document assumptions and decisions in readme file.
   - It should be possible to run your program on Linux or macOS.
   - Please provide us with access to your git repo with code when you’re done (don't push to this repo).
+
+-----
+
+# James Wild 
+
+From here on are my stream-of-conciousness notes on the task. I prefer to keep more casual notes like this when doing something like this, since it's a better insight into my thought processes; actual, real projects get more "official" documentation. Depending on how verbose this gets, I may convert this section into a jupyter notebook, but we shall see.
+
+## Initial thoughts. 
+
+  - Since this is chess on a standard board, there's a temptation to use `stockfish` to generate legal moves. This would let me change what piece we're considering, e.g. to a rook, or let me impose restrictions like there being other pieces on the board, but still feels like overkill for the description as-is.
+    - It's not worth the import, I don't think. Were the task to expand, the logic from a vanilla python implementation would port over pretty easily anyway, so a v2 would be pretty doable.
+  - Knights can move both forward and back, making closed loops irrelevant. Keep a list of visited tiles, and disallow revisting places we've been.
+  - Possible use-case for recursion - I'll have a think once I've got basics down.
