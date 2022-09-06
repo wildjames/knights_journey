@@ -30,17 +30,29 @@ def get_possible_moves(position):
 
 
 def index_to_chess_notation(position):
-    pass
+    """Take a position, like (2, 4), and return the chess notation string, like B5."""
+    file = "ABCDEFGH"[position[0]]
+    rank = str(position[1]+1)
+
+    chess_notation = file + rank
+
+    return chess_notation
 
 
-def chess_notation_to_index(postition):
-    pass
+def chess_notation_to_index(chess_notation):
+    """Take a position, like B5, and return the chess notation string, like (2, 4)."""
+
+    file = "ABCDEFGH".index(chess_notation[0])
+    rank = int(chess_notation[1]) - 1
+
+    index = np.array([file, rank])
+    return index
 
 
 if __name__ in "__main__":
-    position = np.array([0, 0])
+    position = np.array([1, 2])
     moves = get_possible_moves(position)
     print("Position:")
-    print(position)
+    print(index_to_chess_notation(position))
     print("Moves:")
     print(moves)
