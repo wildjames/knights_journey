@@ -2,6 +2,7 @@ import numpy as np
 
 # Define the board as having the bottom left square be [0,0], and the top right be [7,7]
 
+# Possible knight movement vectors
 knight_moves = np.array(
     [
         [+1, +2],
@@ -19,7 +20,8 @@ knight_moves = np.array(
 def get_possible_moves(position):
     """Take a position, which is a 2-element list, and 
     return the possible moves that a knight could take from that location.
-    Leverages numpy logic"""
+    Leverages numpy logic
+    """
     moves = knight_moves + np.array(position)
     
     # Some numpy magic. Filter out all elements that contain a negative number
@@ -32,6 +34,7 @@ def get_possible_moves(position):
 
 def index_to_chess_notation(position):
     """Take a position, like (2, 4), and return the chess notation string, like B5."""
+
     file = "ABCDEFGH"[position[0]]
     rank = str(position[1]+1)
 
@@ -50,37 +53,68 @@ def chess_notation_to_index(chess_notation):
     return index
 
 
-def move_between_positions(start, stop, history=None, visited=None):
-    """Get the shortest path between two positions, recursively. 
-    Note that this version checks depth-first, so will absolutely not return the fastest solutions.
-    
-    TODO: rewrite this so it's breadth-first."""
-    if history is None:
-        history = [start]
-        visited = [start]
+def move_between_positions(stop, histories):
+    """Histories must be initialised with at least one history, with at least one position. 
+    e.g.
+    histories = [
+        [ # first history
+            [0,0]
+        ]
+    ]
 
-    possible_moves = get_possible_moves(start)
-    # Dont allow retreading steps
-    possible_moves = [move for move in possible_moves if move not in history and move not in visited]
+    Recursive. Returns a list of positions that terminate at the `stop` position
+
+    Inputs:
+    -------
+    stop: list
+        - A two-element list that constitutes the target vector. e.g. [0, 1]
+    histories: list
+        - A list-of-lists-of-positions, which forms the traversed tree. Each element of the top-level list is a list of unique positions 
     
-    if stop in possible_moves:
-        history.append(stop)
-        return history
+    Returns:
+    --------
+    path: list
+        - A list of positions that terminate at the `stop` vector.
+    """
+    # Get the shortest history. This will be checked next.
+    shortest_history = histories[0]
+    for history in histories:
+        if len(history) < len(shortest_history):
+            shortest_history = history
+
+    position = shortest_history[-1]
+    moves = get_possible_moves(position)
+    for move in moves:
+        # If we've been here before, skip this move
+        if move in shortest_history:
+            continue
+
+        # Create a new history with this move on the end, and 
+        # if its new then add it to the list of histories
+        proposed_history = shortest_history + [move]
+
+        # If we've arrived, return the path
+        if move == stop:
+            return proposed_history
+
+        # If we are still searching, add a branch to the tree
+        if not proposed_history in histories:
+            histories.append(proposed_history)
     
-    else:
-        for move in possible_moves:
-            history.append(move)
-            visited.append(move)
-            return move_between_positions(move, stop, history, visited)
+    # Prune the old branch
+    histories.remove(shortest_history)
+
+    return move_between_positions(stop, histories)
 
 
 if __name__ in "__main__":
-    position = "A1"
-    target = "H8"
+    position = "E1"
+    target = "E8"
 
-    print("Final answer:")
     position = chess_notation_to_index(position)
     target = chess_notation_to_index(target)
-    moves = move_between_positions(position, target)
-    print(moves)
-    print("This is {} moves".format(len(moves)))
+    moves = move_between_positions(target, [[position]])
+
+    print("Final answer:")
+    print([index_to_chess_notation(m) for m in moves])
+    print("This is {} positions".format(len(moves)))
