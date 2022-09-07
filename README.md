@@ -39,22 +39,7 @@ Notes
 
 # James Wild 
 
-From here on are my stream-of-conciousness notes on the task. I prefer to keep more casual notes like this when doing something like this, since it's a better insight into my thought processes; actual, real projects get more "official" documentation. Depending on how verbose this gets, I may convert this section into a jupyter notebook, but we shall see.
-
-So there didn't wind up being much to talk about. Besides initially using a depth-first search (caught by my tests) and having to re-jig the logic for the moving function, this proceeded fairly straightforwardly. I'll leave my initial thoughts below unedited, for posterity, but this was fun to do around dinner and while watching Charlotte (my wife) play some games in the background.
-
-
-## Initial thoughts. 
-
-  - Since this is chess on a standard board, there's a temptation to use `stockfish` to generate legal moves. This would let me change what piece we're considering, e.g. to a rook, or let me impose restrictions like there being other pieces on the board, but still feels like overkill for the description as-is.
-    - It's not worth the import, I don't think. Were the task to expand, the logic from a vanilla python implementation would port over pretty easily anyway, so a v2 would be pretty doable.
-  - Knights can move both forward and back, making closed loops irrelevant. Keep a list of visited tiles, and disallow revisting places we've been.
-  - Possible use-case for recursion - I'll have a think once I've got basics down.
-    - My quick-and-dirty recursive implementation turned out depth-first, duh. Rewrite that so it's breadth-first!
-  - It occurs to me while writing the breadth-first version that since this is just a graph, I could leverage a graph package to handle this?
-    - Probably more optimised
-    - It's been a few years since I've done anything with networkX, but I think that would do the job here... But I'd need to essentially re-learn its use
-
+This is my attempt at filling the above brief. Note that any minor changes should be made on the `development` branch, and new features or refactoring should be done on their own branches. Committing directly to master should be disabled. Pull requests *must* pass automated checks, and new functions should be covered with new tests!
 
 ## Running the code
 
@@ -65,7 +50,9 @@ conda activate knights_journey
 pip install -r requirements.txt
 ```
 
-I have two running scripts, `./knights_journey.py` which takes two arguments `[start] [stop]` and prints a path between them, and `endless_knight.py` which just streams in the `stdin` and prints paths as we go, with output that looks like this:
+I have two running scripts. First, and mostly for debugging, is `./knights_journey.py` which takes two arguments: `[start]` and `[stop]`, and prints a path between them. This has a shebang, so doesn't need to have python specified: `$ ./knights_journey.py [start] [stop]`.
+
+There is also `endless_knight.py` which just streams in the `stdin` and prints paths as we go, with output that looks like this:
 ```
 $ ./endless_knight.py 
 A1 B3
@@ -77,9 +64,32 @@ D3 E5 F7 D6 E8
 ```
 This can be escaped by entering an invalid position, killing the script, or entering a string containing `q`. Note that positions can also be fed input from a file, like `./endless_knight.py < input_list.txt`
 
+
 ## Testing
 
 I should have `pytest` tests for my code (if I've kept up with it), which should be runnable simply with
 ```
 pytest --cov=src tests/
 ```
+
+Pytest should also run automatically in Github on pushes and pull requests. 
+
+-----
+
+## Initial thoughts. 
+
+From here on are my stream-of-conciousness notes on the task. I prefer to keep more casual notes when doing something like this, since it's a better insight into my thought processes; actual, real projects get more "official" documentation. Depending on how verbose this gets, I may convert this section into a jupyter notebook, but we shall see.
+
+  - Since this is chess on a standard board, there's a temptation to use `stockfish` to generate legal moves. This would let me change what piece we're considering, e.g. to a rook, or let me impose restrictions like there being other pieces on the board, but still feels like overkill for the description as-is.
+    - It's not worth the import, I don't think. Were the task to expand, the logic from a vanilla python implementation would port over pretty easily anyway, so a v2 would be pretty doable.
+  - Knights can move both forward and back, making closed loops irrelevant. Keep a list of visited tiles, and disallow revisting places we've been.
+  - Possible use-case for recursion - I'll have a think once I've got basics down.
+    - My quick-and-dirty recursive implementation turned out depth-first, duh. Rewrite that so it's breadth-first!
+  - It occurs to me while writing the breadth-first version that since this is just a graph, I could leverage a graph package to handle this?
+    - Probably more optimised
+    - It's been a few years since I've done anything with networkX, but I think that would do the job here... But I'd need to essentially re-learn its use
+
+-----
+
+So there didn't wind up being much to talk about. Besides initially using a depth-first search (caught by my tests) and having to re-jig the logic for the moving function, this proceeded fairly straightforwardly. I'll leave my initial thoughts below unedited, for posterity, but this was fun to do around dinner and while watching Charlotte (my wife) play some games in the background.
+
