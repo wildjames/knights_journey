@@ -116,6 +116,6 @@ def print_path(start, stop):
     target = chess_notation_to_index(stop)
     moves = move_between_positions(target, initial_history)
     moves = [index_to_chess_notation(m) for m in moves]
-    moves = " ".join(moves)
-
-    print(moves)
+    
+    print(" ".join(moves))
+    return moves
