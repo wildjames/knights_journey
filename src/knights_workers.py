@@ -105,3 +105,17 @@ def move_between_positions(stop, histories):
     histories.remove(shortest_history)
 
     return move_between_positions(stop, histories)
+
+
+def print_path(start, stop):
+    """Take two positions, in chess co-ordinates (i.e. A1 - H8), and print the 
+    positions that a knight could move through to take the shortest path between them.
+    """
+
+    initial_history = [[chess_notation_to_index(start)]]
+    target = chess_notation_to_index(stop)
+    moves = move_between_positions(target, initial_history)
+    moves = [index_to_chess_notation(m) for m in moves]
+    moves = " ".join(moves)
+
+    print(moves)
