@@ -2,7 +2,7 @@ import numpy as np
 
 # Define the board as having the bottom left square be [0,0], and the top right be [7,7]
 
-# Possible knight movement vectors
+# Possible knight movement vectors
 knight_moves = np.array(
     [
         [+1, +2],
@@ -18,16 +18,16 @@ knight_moves = np.array(
 
 
 def get_possible_moves(position):
-    """Take a position, which is a 2-element list, and 
+    """Take a position, which is a 2-element list, and
     return the possible moves that a knight could take from that location.
     Leverages numpy logic
     """
     moves = knight_moves + np.array(position)
-    
-    # Some numpy magic. Filter out all elements that contain a negative number
+
+    # Some numpy magic. Filter out all elements that contain a negative number
     positive_moves = moves[np.all(moves >= 0, axis=1)]
     legal_moves = positive_moves[np.all(positive_moves < 8, axis=1)]
-    
+
     # There should always be at least two possible moves, if my reasoning is correct.
     return legal_moves.tolist()
 
@@ -36,7 +36,7 @@ def index_to_chess_notation(position):
     """Take a position, like (2, 4), and return the chess notation string, like B5."""
 
     file = "ABCDEFGH"[position[0]]
-    rank = str(position[1]+1)
+    rank = str(position[1] + 1)
 
     chess_notation = file + rank
 
@@ -54,7 +54,7 @@ def chess_notation_to_index(chess_notation):
 
 
 def move_between_positions(stop, histories):
-    """Histories must be initialised with at least one history, with at least one position. 
+    """Histories must be initialised with at least one history, with at least one position.
     e.g.
     histories = [
         [ # first history
@@ -69,14 +69,14 @@ def move_between_positions(stop, histories):
     stop: list
         - A two-element list that constitutes the target vector. e.g. [0, 1]
     histories: list
-        - A list-of-lists-of-positions, which forms the traversed tree. Each element of the top-level list is a list of unique positions 
-    
+        - A list-of-lists-of-positions, which forms the traversed tree. Each element of the top-level list is a list of unique positions
+
     Returns:
     --------
     path: list
         - A list of positions that terminate at the `stop` vector.
     """
-    # Get the shortest history. This will be checked next.
+    # Get the shortest history. This will be checked next.
     shortest_history = histories[0]
     for history in histories:
         if len(history) < len(shortest_history):
@@ -89,7 +89,7 @@ def move_between_positions(stop, histories):
         if move in shortest_history:
             continue
 
-        # Create a new history with this move on the end, and 
+        # Create a new history with this move on the end, and
         # if its new then add it to the list of histories
         proposed_history = shortest_history + [move]
 
@@ -97,10 +97,10 @@ def move_between_positions(stop, histories):
         if move == stop:
             return proposed_history
 
-        # If we are still searching, add a branch to the tree
+        # If we are still searching, add a branch to the tree
         if not proposed_history in histories:
             histories.append(proposed_history)
-    
+
     # Prune the old branch
     histories.remove(shortest_history)
 
@@ -108,7 +108,7 @@ def move_between_positions(stop, histories):
 
 
 def print_path(start, stop):
-    """Take two positions, in chess co-ordinates (i.e. A1 - H8), and print the 
+    """Take two positions, in chess co-ordinates (i.e. A1 - H8), and print the
     positions that a knight could move through to take the shortest path between them.
     """
 
@@ -116,6 +116,6 @@ def print_path(start, stop):
     target = chess_notation_to_index(stop)
     moves = move_between_positions(target, initial_history)
     moves = [index_to_chess_notation(m) for m in moves]
-    
+
     print(" ".join(moves))
     return moves
