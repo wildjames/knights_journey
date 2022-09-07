@@ -1,20 +1,10 @@
 #!python3
 
 from src.knights_workers import print_path
+import sys
 
 
 if __name__ in "__main__":
-    while True:
-        try:
-            inp = input("")
-        except EOFError:
-            exit()
-        
-        if "q" in inp.lower():
-            exit()
-        if not " " in inp:
-            exit()
-        
-        start, stop = inp.split(" ")
-
+    for line in sys.stdin.readlines():
+        start, stop = line.strip().split(" ")
         print_path(start, stop)
