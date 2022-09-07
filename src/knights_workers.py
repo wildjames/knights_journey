@@ -119,3 +119,5 @@ def print_path(start, stop):
     moves = " ".join(moves)
 
     print(moves)
+
+    return moves
