@@ -107,3 +107,46 @@ def test_pathfinding(input, output):
 
     n_moves = len(move_between_positions(stop, [[start]]))
     assert output >= n_moves
+
+
+print_path_tests = [
+    [
+        # One move gets you there
+        ["A1", "B3"],
+        2,
+    ],
+    [
+        # Two moves gets you there
+        ["A1", "C5"],
+        3,
+    ],
+    [
+        # Cross the board
+        ["A1", "H8"],
+        7,
+    ],
+    [
+        # And back again
+        ["H8", "A1"],
+        7,
+    ],
+    [
+        # From near the middle
+        ["E4", "H8"],
+        4,
+    ],
+    [
+        # Traverse in a straight line
+        ["D1", "D8"],
+        6,
+    ],
+]
+
+
+@pytest.mark.parametrize("input,output", print_path_tests)
+def test_pathfinding(input, output):
+    start = input[0]
+    stop = input[1]
+
+    n_moves = len(print_path(start, stop))
+    assert output == n_moves
